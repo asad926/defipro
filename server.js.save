@@ -1,0 +1,25 @@
+const express = require('express');
+const MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://84.32.188.62:27017/"
+const app = express();
+const port = "3000";
+
+app.post('/save', function(req,res){
+MongoClient.con
+nect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("admin");
+  var data = { email: "valley345@gmail.com",wallet:"0x213jk2h4k1j235123hk1j3fv",approvedAmmount:34683.3245 };
+  dbo.collection("customers").insertOne(data, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+});
+});
+});
+
+app.get('/', function (req,res){
+res.send('Hello World!');
+});
+
+app.listen(3000);
